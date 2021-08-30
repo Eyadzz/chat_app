@@ -1,4 +1,5 @@
 import 'package:chat_app/Home.dart';
+import 'package:chat_app/utility/DatabaseHelper.dart';
 import 'package:chat_app/utility/UserProvider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,7 +48,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           appBar: AppBar(
             title: Text("Create Account",
               style: TextStyle(
-                fontSize: 25,
+                fontSize: 20,
                 fontFamily: "Poppins_Bold",
               ),
             ),
@@ -178,13 +179,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           password: password
       );
 
-      final usersCollectionRef = database.collection(Users.User.COLLECTION_NAME).withConverter<Users.User>(
-        fromFirestore: (snapshot, _) => Users.User.fromJson(snapshot.data()!),
-        toFirestore: (user, _) => user.toJson(),
-      );
+      final usersCollectionRef = getUsersCollection();
 
       final newUser = Users.User(id: userCredential.user!.uid,username: username,email: email,password: password);
-      usersCollectionRef.add(newUser).then((value){
+      usersCollectionRef.doc(newUser.id).set(newUser).then((value){
         provider.updateUser(newUser);
         Navigator.of(context).pushReplacementNamed(Home.routeName);
       });
