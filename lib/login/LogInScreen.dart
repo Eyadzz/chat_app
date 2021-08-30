@@ -11,25 +11,35 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _loginFormKey = GlobalKey<FormState>();
-
   String email = '';
-
   String password = '';
+  bool isPasswordSecured = true;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
-
       children: [
         Container(
           decoration: BoxDecoration(color: Colors.white),
-         // child: Image(image: AssetImage('assets/images/Group_9672.png'),fit:BoxFit.fill,
-           // width: double.infinity,height: double.infinity,),
+          child: Image.asset(
+            'assets/images/bg.png',
+            fit: BoxFit.fill,
+            width: double.infinity,
+            height: double.infinity,
+          ),
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            //title: Text('Login',style:TextStyle(color: Colors.black)), // 20 bold white
+            title: Text(
+              "Login",
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: "Poppins_Bold",
+                color: Colors.white,
+              ),
+            ),
+            centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),
@@ -40,21 +50,27 @@ class _LoginState extends State<Login> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
-                  child: Text("Welcome Back!",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,),),//24 bold poppins
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                  child: Text(
+                    "Welcome Back!",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                    ),
+                  ), //24 bold poppins
                 ),
                 Form(
                   key: _loginFormKey,
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 3),
                         child: TextFormField(
                             onChanged: (newValue) {
                               email = newValue;
                             },
                             decoration: InputDecoration(
-                              labelText: 'Email', //12 poppins regular
+                              labelText: 'Email', //regular
                               floatingLabelBehavior: FloatingLabelBehavior.auto,
                             ),
                             validator: (value) {
@@ -65,14 +81,22 @@ class _LoginState extends State<Login> {
                             }),
                       ),
                       Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
                         child: TextFormField(
                             onChanged: (newValue) {
                               password = newValue;
                             },
+                            obscureText: isPasswordSecured ? true : false,
                             decoration: InputDecoration(
-                              labelText: 'Password', //12 poppins regular
+                              labelText: 'Password', //regular
                               floatingLabelBehavior: FloatingLabelBehavior.auto,
+                              suffixIcon:IconButton(
+                                icon: Icon(isPasswordSecured? Icons.visibility_outlined : Icons.visibility_off_outlined),
+                                onPressed: (){
+                                  isPasswordSecured = !isPasswordSecured;
+                                  setState(() {});
+                                },
+                              ),
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -85,21 +109,25 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0,0,0,20),
+                  padding: EdgeInsets.fromLTRB(0, 3, 0, 10),
                   child: InkWell(
-                    onTap: (){
-                    },
+                    onTap: () {},
                     child: Container(
-                      child: Text("Forgot password?",style: TextStyle(fontSize: 12, fontFamily: "Poppins"),),
+                      child: Text(
+                        "Forgot password?",
+                        style: TextStyle(fontSize: 12, fontFamily: "Poppins"),
+                      ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0,0,0,20),
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 8),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      logInAccount();
+                    },
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(0,0,0,0),
+                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -122,10 +150,12 @@ class _LoginState extends State<Login> {
                   //14 Poppins Semibold
                 ),
                 InkWell(
-                  onTap: (){
-                  },
+                  onTap: () {},
                   child: Container(
-                    child: Text("Or Create My Account",style: TextStyle(fontSize: 14, fontFamily: "Poppins"),),
+                    child: Text(
+                      "Or Create My Account",
+                      style: TextStyle(fontSize: 14, fontFamily: "Poppins"),
+                    ),
                   ),
                 ),
               ],
@@ -151,24 +181,28 @@ class _LoginState extends State<Login> {
       );
       showErrorMessage("Logged in successfully");
     } on FirebaseAuthException catch (e) {
-     showErrorMessage(e.message ?? "Email or Password is wrong please try again");
+      showErrorMessage(
+          e.message ?? "Email or Password is wrong please try again");
+    } catch (e) {
+      //print(e);
     }
   }
 
-  void showErrorMessage(String message) {
+  showErrorMessage(String msg) {
     showDialog(
         context: context,
         builder: (buildContext) {
           return AlertDialog(
-            content: Text(message),
+            content: Text(msg),
             actions: [
               TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('ok'))
+                  child: Text("Ok"))
             ],
           );
         });
   }
+
 }
