@@ -1,17 +1,17 @@
-import 'package:chat_app/database/DataBaseHelper.dart';
+import 'package:chat_app/database/DatabaseHelper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/model/Room.dart';
 import 'RoomGridItem.dart';
 
-/*
+
 class HomeScreen extends StatelessWidget {
   static const String ROUTE_NAME='home';
 
-  CollectionReference<Room>roomCollectionRef;
+  late CollectionReference<Room>roomCollectionRef;
 
   HomeScreen(){
     roomCollectionRef=getRoomsCollectionWithConverter();
-
   }
 
   @override
@@ -54,7 +54,6 @@ class HomeScreen extends StatelessWidget {
               )
             ),
 
-
         )
       ]
     );
@@ -62,4 +61,3 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
- */
