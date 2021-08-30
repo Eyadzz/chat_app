@@ -1,6 +1,15 @@
+import 'package:chat_app/components/MessageHandel.dart';
+import 'package:chat_app/datebase/Utils.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'AppConfigProvider.dart';
+import 'model/Message.dart';
+import 'model/Room.dart';
+
+
 class Chat extends StatefulWidget {
-  Chat({Key key, this.title}) : super(key: key);
+  Chat({Key? key, this.title}) : super(key: key);
   static const routeName = "chat";
   var title;
   @override
@@ -8,8 +17,26 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> {
+  String textMessage = '';
+  late Room room;
+  late CollectionReference<Message> messageRef;
+  late AppConfigProvider provider;
+  late TextEditingController textMessageController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    textMessageController = TextEditingController(text: textMessage);
+  }
+
   @override
   Widget build(BuildContext context) {
+    //final args = ModalRoute.of(context)?.settings.arguments as RoomDetailsArgs;
+    //room = args.room!;
+    messageRef = getMessageWithConverter('Nsi7EbaO2K2doFmFRIwA');
+    provider = Provider.of<AppConfigProvider>(context);
+    final Stream<QuerySnapshot<Message>> messageStream = messageRef.orderBy('time').snapshots();
     return Stack(
       children: [
         Container(
@@ -38,14 +65,29 @@ class _ChatState extends State<Chat> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(
-                  child: Column(
-
+                  child: StreamBuilder<QuerySnapshot<Message>>(
+                    stream: messageStream,
+                    builder: (BuildContext buildContext, AsyncSnapshot<QuerySnapshot<Message>> snapshot){
+                      if(snapshot.hasError){
+                        return Center(child: Text(snapshot.error.toString()),);
+                      }else if(snapshot.hasData){
+                        return ListView.builder(itemBuilder: (buildContext, index){
+                          return MessageHandel(message: snapshot.data!.docs[index].data());
+                        },
+                        itemCount: snapshot.data?.size??0,
+                        reverse: true,
+                        );
+                      }else{
+                        return Center(child: CircularProgressIndicator(),);
+                      }
+                    },
                   ),
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: TextField(
+                        controller: textMessageController,
                         decoration: InputDecoration(
                             hintText: 'Enter Message',
                             border: OutlineInputBorder(
@@ -53,6 +95,9 @@ class _ChatState extends State<Chat> {
                             ),
                             contentPadding: EdgeInsets.symmetric(vertical: 1,horizontal: 8),
                         ),
+                        onChanged: (txt){
+                          textMessage = txt;
+                        },
                       ),
                     ),
                     Container(
@@ -64,7 +109,7 @@ class _ChatState extends State<Chat> {
                             padding: MaterialStateProperty.all(EdgeInsets.all(4)),
                             enableFeedback: true,
                           ),
-                          onPressed: (){},
+                          onPressed: sendMessage,
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 8,vertical: 6),
                             child: Row(
@@ -90,4 +135,20 @@ class _ChatState extends State<Chat> {
       ],
     );
   }
+
+  sendMessage(){
+    if(textMessage.isEmpty)return;
+    else{
+      final newMessageObj = messageRef.doc();
+      final message = Message(id: newMessageObj.id, content: textMessage, time: DateTime.now().microsecondsSinceEpoch
+          , senderName: "abdo", senderId: 'kefmdk');
+      newMessageObj.set(message).then((value) {
+        setState(() {
+          textMessage = '';
+          textMessageController.clear();
+        });
+      });
+    }
+  }
+
 }
