@@ -19,7 +19,7 @@ class _AddRoomState extends State<AddRoom> {
 
   List <String> roomCategories= ['movies','sports','music'];
 
-  String selectedRoomCategory = 'sports ';
+  String selectedRoomCategory = 'sports';
 
   bool isLoading=false;
 
@@ -126,7 +126,6 @@ class _AddRoomState extends State<AddRoom> {
                                   selectedRoomCategory = newSelected as String;
                                 });
                               },
-                              hint:Text("Select item"),
                               style:TextStyle(color:Colors.grey, fontSize: 16),
                               icon: Icon(Icons.arrow_drop_down_outlined),
                               isExpanded: true,
