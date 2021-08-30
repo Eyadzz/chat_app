@@ -1,3 +1,4 @@
+import 'package:chat_app/home/JoinRoomScreen.dart';
 import 'package:chat_app/model/Room.dart';
 import 'package:chat_app/roomDetails/RoomDetailsScreen.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ class RoomGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-          Navigator.of(context).pushNamed(RoomDetailsScreen.routeName,arguments: RoomDetailsArgs(room));
+          Navigator.of(context).pushNamed(JoinRoomScreen.routeName,arguments: RoomDetailsArgs(room));
       },
       child: Container(
         padding: EdgeInsets.all(12),
@@ -26,8 +27,8 @@ class RoomGridItem extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              Image(image: AssetImage('assets/images/${room.category}.png'),height: 120,fit:BoxFit.fitHeight,)
-              ,Text(room.name,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 24))
+              Image(image: AssetImage('assets/images/${room!.category}.png'),height: 120,fit:BoxFit.fitHeight,)
+              ,Text(room!.name,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 24))
             ],
           ),
         ),

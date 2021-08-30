@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class AppProvider extends ChangeNotifier{
 
-  User?
+//  User?
   AppProvider(){
-    final firebaseUser= FirebaseAuth.instance.currentUser;
-    if(firebaseUser!=null){
+  //  final firebaseUser= FirebaseAuth.instance.currentUser;
+    //if(firebaseUser!=null){
 
-    }
+    //}
   }
 }

@@ -1,3 +1,4 @@
+import 'package:chat_app/home/JoinRoomScreen.dart';
 import 'package:flutter/material.dart';
 
 import 'home/HomeScreen.dart';
@@ -11,8 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: JoinRoomScreen(),
     );
   }
 }

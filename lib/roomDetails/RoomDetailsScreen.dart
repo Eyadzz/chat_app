@@ -24,26 +24,44 @@ class RoomDetailsScreen extends StatelessWidget {
             ),
             appBar: AppBar(title: Text(room.name)),
             body: Container(
-                margin: EdgeInsets.symmetric(vertical:48,horizontal: 24 ),
+              padding: EdgeInsets.all(8),
+              margin: EdgeInsets.symmetric(vertical:48,horizontal: 24 ),
               decoration: BoxDecoration(
                 boxShadow: [BoxShadow(color: Colors.black12,offset: Offset(4,4))],
                 borderRadius:BorderRadius.all(Radius.circular(12)),
-    color: Colors.white
-
-                )
-    child:Column(
-    children: [
-      Expanded(child: Container()),
-          Row(
+                color: Colors.white
+                ),
+            child:Column(
             children: [
-              TextField(
-                decoration: ,
-              )
-            ],
-          )
-    ],
+              Expanded(child: Container()),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          decoration: InputDecoration(hintText: ('send'),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 4,vertical: 2),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.only(topRight: Radius.circular(12))
+                          ),
+                          )
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 4),
+                        padding: EdgeInsets.symmetric(vertical: 12,horizontal: 18),
+                        decoration: BoxDecoration(
+                            borderRadius:BorderRadius.all(Radius.circular(12)),
+                            color: Colors.blue
+                        ),
+                        child: Row(children: [
+                          Text('Send',style: TextStyle(color: Colors.white),),
+                          Image.asset('assets/images/send.png')
+                        ],),
+                      )
+                    ],
+                  )
+                ],
               ),
-
             ),
           )
         ]
