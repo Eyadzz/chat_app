@@ -1,10 +1,12 @@
-import 'package:chat_app/Chat.dart';
+import 'package:chat_app_sat/home/AddRoom.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'Home.dart';
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -17,7 +19,8 @@ class MyApp extends StatelessWidget {
       initialRoute: Chat.routeName,
       routes: {
         Chat.routeName: (context)=> Chat(title: 'Chat',),
-        Home.routeName: (context)=> Home()
+        Home.routeName: (context)=> Home(),
+        AddRoom.routeName :(context) => AddRoom()
       },
     );
   }
