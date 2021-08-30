@@ -1,5 +1,5 @@
-import 'package:chat_app/Home.dart';
 import 'package:chat_app/database/DatabaseHelper.dart';
+import 'package:chat_app/home/HomeScreen.dart';
 import 'package:chat_app/utility/UserProvider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -184,7 +184,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       final newUser = Users.User(id: userCredential.user!.uid,username: username,email: email,password: password);
       usersCollectionRef.doc(newUser.id).set(newUser).then((value){
         provider.updateUser(newUser);
-        Navigator.of(context).pushReplacementNamed(Home.routeName);
+        Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
       });
 
       showErrorMessage("Account created successfully");

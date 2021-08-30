@@ -1,6 +1,6 @@
-import 'package:chat_app_sat/AppProvider.dart';
-import 'package:chat_app_sat/datebase/Utils.dart';
-import 'package:chat_app_sat/model/Room.dart';
+import 'package:chat_app/AppProvider.dart';
+import 'package:chat_app/database/DatabaseHelper.dart';
+import 'package:chat_app/model/Room.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

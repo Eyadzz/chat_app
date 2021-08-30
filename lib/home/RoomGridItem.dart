@@ -9,30 +9,36 @@ class RoomGridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+
       onTap: (){
           Navigator.of(context).pushNamed(JoinRoomScreen.routeName,arguments: RoomDetailsArgs(room));
       },
-      child: Container(
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color:Colors.white,
-          borderRadius: BorderRadius.circular(18),
-          boxShadow: [
-            BoxShadow(color: Colors.black12,
-              blurRadius: 4,
-              offset: Offset(4,8)
-            )
-          ]
-        ),
-        child: Center(
-          child: Column(
-            children: [
-              Image(image: AssetImage('assets/images/${room!.category}.png'),height: 120,fit:BoxFit.fitHeight,)
-              ,Text(room!.name,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 24))
-            ],
+          child: Container(
+          padding: EdgeInsets.all(8),
+            margin: EdgeInsets.only(top: 10,right: 5,left: 5),
+            decoration: BoxDecoration(
+              color:Colors.white,
+              borderRadius: BorderRadius.circular(18),
+              boxShadow: [
+                BoxShadow(color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(4,8)
+                )
+              ]
+            ),
+            child: Center(
+              child: Column(
+                children: [
+                  Image(image: AssetImage('assets/images/${room!.category}.png'),
+                    width: 100,
+                    height: 100,)
+                  ,SizedBox(height: 10)
+                  ,Text(room!.name,style: TextStyle(fontFamily: 'Poppins',fontWeight:FontWeight.bold,fontSize: 14,))
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+
+      );
   }
 }

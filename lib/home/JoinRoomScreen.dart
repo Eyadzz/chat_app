@@ -3,72 +3,96 @@ import 'package:chat_app/roomDetails/RoomDetailsScreen.dart';
 import 'package:flutter/material.dart';
 
 class JoinRoomScreen extends StatefulWidget {
-  static const routeName='JoinRoom';
-
+  static const routeName = 'JoinRoom';
 
   @override
   _JoinRoomScreenState createState() => _JoinRoomScreenState();
 }
 
 class _JoinRoomScreenState extends State<JoinRoomScreen> {
-   late Room room;
-
-   void initState(){
-     super.initState();
-       this.room.name='The Movies Zone!';
-       this.room.description="Lorem ipsum dolor sit amet, consectetur elit,"
-           " sed do eiusmod tempor incididunt ut labore et  dolore magna aliqua."
-           " Ut enim ad minim veniam,  quis nostrud exercitation ullamco "
-           "laboris nisi ut  aliquip ex ea commodo consequat. Duis aute irure ";
-       this.room.category='movies';
-       this.room.id='1';
-       setState(() {
-
-       });
-   }
-
   @override
   Widget build(BuildContext context) {
-    return Stack(
-        children: [
-          Container(
-            color: Colors.white,
-          ),
-          Image(image: AssetImage('assets/images/Group_9672.png'),fit:BoxFit.fill,
-            width: double.infinity,height: double.infinity,),
-          Scaffold(
-            floatingActionButton: FloatingActionButton(
-                onPressed: () {  },
-                child: Icon(Icons.add)
-            ),
-            appBar: AppBar(title: Text(room.name)),
-            body: Container(
-              padding: EdgeInsets.all(8),
-              margin: EdgeInsets.symmetric(vertical:48,horizontal: 24 ),
-              decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(color: Colors.black12,offset: Offset(4,4))],
-                  borderRadius:BorderRadius.all(Radius.circular(12)),
-                  color: Colors.white
-              ),
-              child:Center(
-                child: Column(
-                  children: [
-                    Text('Hello, Welcome to our chat room'),
-                    Text('Join ${room.name}!'),
-                    Image.asset('assets/images/${room.category}.png'),
-                    Text(room.description),
-                    ElevatedButton(onPressed: ()=>joinroom(), child: Text('Join'))
+    final args = ModalRoute.of(context)!.settings.arguments as RoomDetailsArgs;
+    return Stack(children: [
+      Container(
+        decoration: BoxDecoration(
+            color: Colors.white
+        ),
+        child: Image.asset(
+          'assets/images/bg.png',
+          fit: BoxFit.fill,
+          width: double.infinity,
+          height: double.infinity,
+        ),
+      ),
+      Scaffold(
+        appBar: AppBar(
+          title: Text(args.room!.name),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: Container(
+            padding: EdgeInsets.only(top: 40,bottom: 12,left: 12,right:12),
+            margin: EdgeInsets.symmetric(vertical: 24, horizontal: 24),
+            decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(color: Colors.black12, offset: Offset(4, 8),blurRadius: 8)
+                ],
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                color: Colors.white),
+            child: Center(
+              child: Column(
+                children: [
+                  Text(
+                    'Hello, Welcome to our chat room',
+                    style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 14,
+                        color: Color.fromRGBO(48, 48, 48, 1.0)),
+                  ),
+                  Text('Join ${args.room!.name}!',
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(48, 48, 48, 1.0))),
+                  SizedBox(height: 20,),
+                  Container(
+                      child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/images/${args.room!.category}.png',
+                        width: 200,
+                        height: 196.45,
+                      ),
+                      SizedBox(height: 30,),
+                      Text(args.room!.description,style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w200,
+                          color: Color.fromRGBO(127, 127, 127, 1.0))),
+                      SizedBox(height: 30,),
+                      ElevatedButton(
+                          style:ElevatedButton.styleFrom(
+                            fixedSize: Size(146.7,45.4),
+                            primary: Colors.blue
+                          ),
+                          onPressed: () => joinroom(context, args),
+                          child: Text('Join'))
                     ],
-                    ),
-              )
-            ),
-            ),
-        ]
-    );
+                  )),
+                ],
+              ),
+            )),
+      ),
+    ]);
   }
 
-  void joinroom(){
+
+  void joinroom(BuildContext context, RoomDetailsArgs RoomArgs) {
     ///room joined by account and navigate to the room chat screen
-    Navigator.of(context).pushNamed(RoomDetailsScreen.routeName,arguments: RoomDetailsArgs(room));
+    Navigator.of(context).pushNamed(RoomDetailsScreen.routeName,
+        arguments: RoomArgs);
   }
 }
