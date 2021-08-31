@@ -29,6 +29,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       Scaffold(
+        backgroundColor: Colors.transparent,
         floatingActionButton: FloatingActionButton(
             onPressed: () {
               Navigator.pushNamed(context, AddRoom.routeName);

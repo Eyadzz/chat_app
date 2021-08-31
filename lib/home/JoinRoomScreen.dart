@@ -1,5 +1,6 @@
 import 'package:chat_app/model/Room.dart';
 import 'package:chat_app/roomDetails/RoomDetailsScreen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class JoinRoomScreen extends StatefulWidget {
@@ -26,6 +27,7 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
         ),
       ),
       Scaffold(
+        backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: Text(args.room!.name),
           centerTitle: true,
@@ -79,7 +81,7 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
                             primary: Colors.blue
                           ),
                           onPressed: () => joinroom(context, args),
-                          child: Text('Join'))
+                          child: Text('Join',style: TextStyle(fontWeight: FontWeight.w500,fontFamily: 'Poppins',fontSize: 16),))
                     ],
                   )),
                 ],
