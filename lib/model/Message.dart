@@ -1,4 +1,6 @@
 
+import 'package:intl/intl.dart';
+
 class Message{
   static const collectionName = 'messages';
   String id;
@@ -25,6 +27,12 @@ class Message{
       'senderName': senderName,
       'senderId': senderId
     };
+  }
+
+  String getDateFormatted(){
+    var output = DateFormat('HH:mm a');
+
+    return output.format(DateTime.fromMicrosecondsSinceEpoch(time));
   }
 
 }

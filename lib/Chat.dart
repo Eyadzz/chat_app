@@ -1,9 +1,11 @@
-import 'package:chat_app/components/MessageHandel.dart';
-import 'package:chat_app/datebase/Utils.dart';
+import 'package:chat_app/components/MessageHandler.dart';
+import 'package:chat_app/utility/DatabaseHelper.dart';
+import 'package:chat_app/roomDetails/RoomDetailsScreen.dart';
+import 'package:chat_app/utility/User.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'AppConfigProvider.dart';
+import 'utility/AppProvider.dart';
 import 'model/Message.dart';
 import 'model/Room.dart';
 
@@ -20,7 +22,7 @@ class _ChatState extends State<Chat> {
   String textMessage = '';
   late Room room;
   late CollectionReference<Message> messageRef;
-  late AppConfigProvider provider;
+  late AppProvider provider;
   late TextEditingController textMessageController;
 
   @override
@@ -32,10 +34,10 @@ class _ChatState extends State<Chat> {
 
   @override
   Widget build(BuildContext context) {
-    //final args = ModalRoute.of(context)?.settings.arguments as RoomDetailsArgs;
-    //room = args.room!;
-    messageRef = getMessageWithConverter('Nsi7EbaO2K2doFmFRIwA');
-    provider = Provider.of<AppConfigProvider>(context);
+    final args = ModalRoute.of(context)?.settings.arguments as RoomDetailsArgs;
+    room = args.room!;
+    messageRef = getMessageWithConverter(room.id);
+    provider = Provider.of<AppProvider>(context);
     final Stream<QuerySnapshot<Message>> messageStream = messageRef.orderBy('time').snapshots();
     return Stack(
       children: [
@@ -72,7 +74,7 @@ class _ChatState extends State<Chat> {
                         return Center(child: Text(snapshot.error.toString()),);
                       }else if(snapshot.hasData){
                         return ListView.builder(itemBuilder: (buildContext, index){
-                          return MessageHandel(message: snapshot.data!.docs[index].data());
+                          return MessageHandler(message: snapshot.data!.docs[index].data());
                         },
                         itemCount: snapshot.data?.size??0,
                         reverse: true,
@@ -109,7 +111,7 @@ class _ChatState extends State<Chat> {
                             padding: MaterialStateProperty.all(EdgeInsets.all(4)),
                             enableFeedback: true,
                           ),
-                          onPressed: sendMessage,
+                          onPressed: (){sendMessage();},
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 8,vertical: 6),
                             child: Row(
@@ -140,8 +142,9 @@ class _ChatState extends State<Chat> {
     if(textMessage.isEmpty)return;
     else{
       final newMessageObj = messageRef.doc();
+      User user = provider.getUser()!;
       final message = Message(id: newMessageObj.id, content: textMessage, time: DateTime.now().microsecondsSinceEpoch
-          , senderName: "abdo", senderId: 'kefmdk');
+          , senderName: user.username, senderId: user.id);
       newMessageObj.set(message).then((value) {
         setState(() {
           textMessage = '';

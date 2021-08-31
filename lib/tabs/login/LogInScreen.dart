@@ -1,6 +1,12 @@
+import 'package:chat_app/components/AlertMessages.dart';
+import 'package:chat_app/home/HomeScreen.dart';
+import 'package:chat_app/tabs/register/RegistrationScreen.dart';
+import 'package:chat_app/utility/DatabaseHelper.dart';
+import 'package:chat_app/utility/AppProvider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   static const String routeName = 'login';
@@ -14,10 +20,12 @@ class _LoginState extends State<Login> {
   String email = '';
   String password = '';
   bool isLoading = false;
-  bool isPasswordHidden = false;
+  bool isPasswordHidden = true;
+  late AppProvider provider;
 
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<AppProvider>(context);
     return Stack(
       children: [
         Container(
@@ -35,8 +43,7 @@ class _LoginState extends State<Login> {
             title: Text("Login",
               style: TextStyle(
                 fontSize: 20,
-                fontWeight: FontWeight.bold,
-                fontFamily: "Poppins",
+                fontFamily: "Poppins_Bold",
               ),
             ),
             centerTitle: true,
@@ -50,11 +57,12 @@ class _LoginState extends State<Login> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    const SizedBox(height: 40,),
                      Container(
                        child: Text(
                          "Welcome Back!",
                          style: TextStyle(
-                           fontWeight: FontWeight.bold,
+                           fontFamily: "Poppins_Bold",
                            fontSize: 24,
                            color:Color.fromRGBO(48,48,48,1),
                          ),
@@ -73,7 +81,7 @@ class _LoginState extends State<Login> {
                               decoration: InputDecoration(
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 labelText: "Email",
-                                labelStyle: TextStyle(color: Color.fromRGBO(121, 121, 121, 1),fontSize: 12,fontWeight: FontWeight.w400,fontFamily: "Poppins",),
+                                labelStyle: TextStyle(color: Color.fromRGBO(121, 121, 121, 1),fontSize: 12,fontWeight: FontWeight.w400,fontFamily: "Poppins", height: -1.5),
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -90,7 +98,7 @@ class _LoginState extends State<Login> {
                               },
                               decoration: InputDecoration(
                                 suffixIcon:IconButton(
-                                  icon: Icon(isPasswordHidden? Icons.visibility_off_outlined : Icons.visibility_outlined),
+                                  icon: Icon(isPasswordHidden?  Icons.visibility_outlined : Icons.visibility_off_outlined),
                                   onPressed: (){
                                     isPasswordHidden = !isPasswordHidden;
                                     setState(() {});
@@ -98,7 +106,7 @@ class _LoginState extends State<Login> {
                                 ),
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 labelText: "Password",
-                                labelStyle: TextStyle(color: Color.fromRGBO(121, 121, 121, 1),fontSize: 12,fontWeight: FontWeight.w400,fontFamily: "Poppins",),
+                                labelStyle: TextStyle(color: Color.fromRGBO(121, 121, 121, 1),fontSize: 12,fontWeight: FontWeight.w400,fontFamily: "Poppins", height: -1.5),
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -129,17 +137,16 @@ class _LoginState extends State<Login> {
                                   shadowColor: MaterialStateProperty.all<Color>(Colors.black)),
                               onPressed: logInAccount,
                               child: Padding(
-                                padding: const EdgeInsets.all(15.0),
+                                padding: const EdgeInsets.all(17.0),
                                 child: Row(
                                   children: [
                                     Expanded(
-                                        child: Text("Login",style: TextStyle(color: Colors.white,fontSize: 14, fontFamily: "Poppins",),)
+                                        child: Text("Login",style: TextStyle(color: Colors.white,fontSize: 14, fontFamily: "Poppins_Bold",),)
                                     ),
                                     Icon(
                                       Icons.arrow_forward_outlined,
                                       color: Colors.white,
                                     ),
-
                                   ],
                                 ),
                               ),
@@ -150,7 +157,9 @@ class _LoginState extends State<Login> {
                     Container(
                       padding: EdgeInsets.fromLTRB(0,40,0,0),
                       child: InkWell(
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.push(context,MaterialPageRoute(builder: (context) => RegistrationScreen()));
+                        },
                         child: Text("Or Create My Account", style: TextStyle(fontSize: 14,color: Color.fromRGBO(80,80,80,1),fontWeight: FontWeight.w300, fontFamily: "Poppins"),
                         )
                       ),
@@ -167,6 +176,9 @@ class _LoginState extends State<Login> {
 
   void logInAccount() {
     if (_loginFormKey.currentState?.validate() == true) {
+      setState(() {
+        isLoading = true;
+      });
       authLogin();
     }
   }
@@ -178,29 +190,20 @@ class _LoginState extends State<Login> {
         email: email,
         password: password,
       );
-      showErrorMessage("Logged in successfully");
+      if(userCredential.user==null)
+        {
+          showErrorMessage("User does not exist",context);
+        }
+      else{
+        getUsersCollection().doc(userCredential.user!.uid).get().then((user) {
+          provider.updateUser(user.data());
+          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomeScreen()));
+        });
+      }
     } on FirebaseAuthException catch (e) {
-      showErrorMessage(
-          e.message ?? "Email or Password is wrong please try again");
+      showErrorMessage(e.message ?? "Email or Password is wrong please try again",context);
     } catch (e) {
     }
-  }
-
-  showErrorMessage(String msg) {
-    showDialog(
-        context: context,
-        builder: (buildContext) {
-          return AlertDialog(
-            content: Text(msg),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text("Ok"))
-            ],
-          );
-        });
   }
 
 }

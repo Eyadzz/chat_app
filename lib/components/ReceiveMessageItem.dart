@@ -36,7 +36,7 @@ class _ReceiveMessageItemState extends State<ReceiveMessageItem> {
             ],
           ),
           SizedBox(width: 5,),
-          Text(widget.message.time.toString(), style: TextStyle(fontSize: 10, color: Colors.blueGrey),),
+          Text(widget.message.getDateFormatted(), style: TextStyle(fontSize: 10, color: Colors.blueGrey),),
         ],
       ),
     );

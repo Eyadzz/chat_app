@@ -1,6 +1,7 @@
-import 'package:chat_app/database/DatabaseHelper.dart';
-import 'package:chat_app/home/HomeScreen.dart';
-import 'package:chat_app/utility/UserProvider.dart';
+import 'package:chat_app/components/AlertMessages.dart';
+import 'package:chat_app/tabs/login/LogInScreen.dart';
+import 'package:chat_app/utility/DatabaseHelper.dart';
+import 'package:chat_app/utility/AppProvider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,11 +26,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final database = FirebaseFirestore.instance;
   var labelTextStyle = TextStyle(fontSize: 12, fontFamily: "Poppins", height: -1.5);
   var buttonTextStyle = TextStyle(fontSize: 14, fontFamily: "Poppins", color: Colors.grey);
-  late UserProvider provider;
+  late AppProvider provider;
 
   @override
   Widget build(BuildContext context) {
-    provider = Provider.of<UserProvider>(context);
+    provider = Provider.of<AppProvider>(context);
     return Stack(
       children: [
         Container(
@@ -135,7 +136,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   shadowColor: MaterialStateProperty.all<Color>(Colors.black)),
                               onPressed: createAccount,
                               child: Padding(
-                                padding: const EdgeInsets.all(15.0),
+                                padding: const EdgeInsets.all(17.0),
                                 child: Row(
                                   children: [
                                     Expanded(
@@ -184,13 +185,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       final newUser = Users.User(id: userCredential.user!.uid,username: username,email: email,password: password);
       usersCollectionRef.doc(newUser.id).set(newUser).then((value){
         provider.updateUser(newUser);
-        Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
       });
 
-      showErrorMessage("Account created successfully");
+      showSuccessMessage("Account created successfully", context, Login());
+
 
     } on FirebaseAuthException catch (e) {
-      showErrorMessage(e.message!);
+      showErrorMessage(e.message!, context);
     } catch (e) {
       //print(e);
     }
@@ -199,22 +200,5 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     });
   }
 
-  showErrorMessage(String msg){
-    showDialog(
-        context: context,
-        builder: (buildContext){
-          return AlertDialog(
-            content: Text(msg),
-            actions: [
-              TextButton(
-                  onPressed: (){
-                    Navigator.pop(context);
-                  },
-                  child: Text("Ok")
-              )
-            ],
-          );
-        });
-  }
 
 }

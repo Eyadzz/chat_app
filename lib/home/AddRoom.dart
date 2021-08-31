@@ -1,8 +1,9 @@
-import 'package:chat_app/AppConfigProvider.dart';
-import 'package:chat_app/datebase/Utils.dart';
 import 'package:chat_app/model/Room.dart';
+import 'package:chat_app/utility/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import 'HomeScreen.dart';
 
 class AddRoom extends StatefulWidget {
   static const String routeName = 'addRoom';
@@ -17,9 +18,9 @@ class _AddRoomState extends State<AddRoom> {
   String roomName = '';
   String roomDescription = '';
 
-  List <String> roomCategories= ['movies','sports','music'];
+  List <String> roomCategories= ['Movies','Sports','Music'];
 
-  String selectedRoomCategory = 'sports';
+  String selectedRoomCategory = 'Sports';
 
   bool isLoading=false;
 
@@ -29,7 +30,7 @@ class _AddRoomState extends State<AddRoom> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: MyThemeData.white,
+              color: Colors.white,
             ),
             child: Image.asset(
               'assets/images/SignIn1.png',
@@ -40,7 +41,8 @@ class _AddRoomState extends State<AddRoom> {
           ),
           Scaffold(
             backgroundColor: Colors.transparent,
-            appBar: AppBar(title: Text('Chat App'),
+            appBar: AppBar(title: Text('Chat App', style: TextStyle(fontSize: 20,
+              fontFamily: "Poppins_Bold",),),
               centerTitle: true,
               elevation: 0,
               backgroundColor: Colors.transparent,
@@ -50,7 +52,7 @@ class _AddRoomState extends State<AddRoom> {
                 padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
-                    color: MyThemeData.white,
+                    color: Colors.white,
                     boxShadow: [
                       BoxShadow(
                           color: Colors.grey,
@@ -193,8 +195,8 @@ class _AddRoomState extends State<AddRoom> {
       setState(() {
         isLoading=false;
       });
-      Fluttertoast.showToast(msg: 'Room Added Successfully',
-          toastLength: Toast.LENGTH_LONG);
+      Fluttertoast.showToast(msg: 'Room Added Successfully', toastLength: Toast.LENGTH_LONG);
+      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomeScreen()));
     });
   }
 }

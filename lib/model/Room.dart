@@ -1,5 +1,5 @@
 class Room{
-  static const collectionName = 'rooms';
+  static const COLLECTION_NAME = 'rooms';
   String id;
   String name;
   String description;

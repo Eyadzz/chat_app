@@ -1,6 +1,7 @@
+import 'package:chat_app/model/Message.dart';
 import 'package:flutter/material.dart';
 class SendMessageItem extends StatefulWidget {
-  var message;
+  Message message;
   SendMessageItem({Key? key, required this.message}) : super(key: key);
 
   @override
@@ -16,7 +17,7 @@ class _SendMessageItemState extends State<SendMessageItem> {
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text(widget.message.time.toString(), style: TextStyle(fontSize: 10, color: Colors.blueGrey),),
+          Text(widget.message.getDateFormatted(), style: TextStyle(fontSize: 10, color: Colors.blueGrey),),
           SizedBox(width: 5,),
           Container(
             child: Text(widget.message.content, style: TextStyle(color: Colors.white),),

@@ -1,10 +1,10 @@
-import 'package:chat_app/database/DatabaseHelper.dart';
-import 'package:chat_app/home/AddRoom.dart';
+import 'package:chat_app/components/CustomAppBar.dart';
+import 'package:chat_app/utility/DatabaseHelper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/model/Room.dart';
+import 'AddRoom.dart';
 import 'RoomGridItem.dart';
-
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'home';
 
@@ -35,9 +35,7 @@ class HomeScreen extends StatelessWidget {
               Navigator.pushNamed(context, AddRoom.routeName);
             },
             child: Icon(Icons.add)),
-        appBar: AppBar(title: Text("Chat App!"),centerTitle: true,
-          backgroundColor: Colors.transparent,
-          elevation: 0,),
+        appBar: CustomAppBar("Chat App"),
         body: Container(
             margin: EdgeInsets.only(top: 64, bottom: 12, right: 12, left: 12),
             child: FutureBuilder<QuerySnapshot<Room>>(

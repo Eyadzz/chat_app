@@ -1,7 +1,8 @@
-import 'package:chat_app/model/Room.dart';
 import 'package:chat_app/roomDetails/RoomDetailsScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../Chat.dart';
 
 class JoinRoomScreen extends StatefulWidget {
   static const routeName = 'JoinRoom';
@@ -29,7 +30,10 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
       Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text(args.room!.name),
+          title: Text(args.room!.name, style: TextStyle(
+            fontSize: 20,
+            fontFamily: "Poppins_Bold",
+          ),),
           centerTitle: true,
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -77,10 +81,10 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
                       SizedBox(height: 30,),
                       ElevatedButton(
                           style:ElevatedButton.styleFrom(
-                            fixedSize: Size(146.7,45.4),
-                            primary: Colors.blue
+                            minimumSize: Size(146.7,45.4),
+                            primary: Colors.blue,
                           ),
-                          onPressed: () => joinroom(context, args),
+                          onPressed: () => joinroom(args),
                           child: Text('Join',style: TextStyle(fontWeight: FontWeight.w500,fontFamily: 'Poppins',fontSize: 16),))
                     ],
                   )),
@@ -92,9 +96,8 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
   }
 
 
-  void joinroom(BuildContext context, RoomDetailsArgs RoomArgs) {
+  void joinroom(RoomDetailsArgs RoomArgs) {
     ///room joined by account and navigate to the room chat screen
-    Navigator.of(context).pushNamed(RoomDetailsScreen.routeName,
-        arguments: RoomArgs);
+    Navigator.of(context).pushNamed(Chat.routeName, arguments: RoomArgs);
   }
 }

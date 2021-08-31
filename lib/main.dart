@@ -2,15 +2,14 @@ import 'package:chat_app/home/AddRoom.dart';
 import 'package:chat_app/home/HomeScreen.dart';
 import 'package:chat_app/home/JoinRoomScreen.dart';
 import 'package:chat_app/roomDetails/RoomDetailsScreen.dart';
+import 'package:chat_app/Chat.dart';
+import 'package:chat_app/tabs/login/LogInScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:chat_app/tabs/register/RegistrationScreen.dart';
-import 'package:chat_app/utility/UserProvider.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:chat_app/utility/AppProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:chat_app/home/AddRoom.dart';
-import 'Home.dart';
-import 'tabs/LogInScreen.dart';
+import 'Chat.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context)=>UserProvider(),
+        create: (context)=>AppProvider(),
       builder: (context,widget){
         return MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -31,12 +30,12 @@ class MyApp extends StatelessWidget {
             JoinRoomScreen.routeName:(buildContext)=>JoinRoomScreen(),
             AddRoom.routeName:(buildContext)=>AddRoom(),
             RegistrationScreen.routeName:(buildContext)=>RegistrationScreen(),
-            Home.routeName:(buildContext)=>Home(),
             Login.routeName:(context)=>Login(),
             HomeScreen.routeName:(buildContext)=>HomeScreen(),
-            RoomDetailsScreen.routeName:(buildContext)=>RoomDetailsScreen()
+            RoomDetailsScreen.routeName:(buildContext)=>RoomDetailsScreen(),
+            Chat.routeName:(buildContext)=>Chat(),
           },
-          initialRoute: RegistrationScreen.routeName,
+          initialRoute: Login.routeName,
         );
       },
     );
