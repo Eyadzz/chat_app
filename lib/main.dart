@@ -1,5 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:chat_app/tabs/register/RegistrationScreen.dart';
+import 'package:chat_app/utility/UserProvider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'Home.dart';
 import 'tabs/LogInScreen.dart';
 
@@ -9,22 +14,23 @@ void main()async {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
 
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        Login.routeName:(context)=>Login(),
-
+    return ChangeNotifierProvider(
+        create: (context)=>UserProvider(),
+      builder: (context,widget){
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          routes: {
+            RegistrationScreen.routeName:(buildContext)=>RegistrationScreen(),
+            Home.routeName:(buildContext)=>Home(),
+            Login.routeName:(context)=>Login(),
+          },
+          initialRoute: RegistrationScreen.routeName,
+        );
       },
-      initialRoute: Login.routeName,
-      home: Home(),
     );
   }
 }
