@@ -98,37 +98,32 @@ class _AddRoomState extends State<AddRoom> {
                           ),
 
 
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                            child: DropdownButton(
-                              value: selectedRoomCategory,
-                              items: roomCategories.map((name) {
-                                return   DropdownMenuItem(
-                                    value: name,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(name),
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                );
-                              }).toList(),
-                              onChanged: (newSelected){
-                                setState(() {
-                                  selectedRoomCategory = newSelected as String;
-                                });
-                              },
-                              style:TextStyle(color:Colors.grey, fontSize: 16),
-                              icon: Icon(Icons.arrow_drop_down_outlined),
-                              isExpanded: true,
+                          Container(
+                            margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                            decoration: ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(width: 1.0, style: BorderStyle.solid),
+                              ),
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+
+                                value: selectedRoomCategory,
+                                items: roomCategories.map((name) {
+                                  return   DropdownMenuItem(
+                                      value: name,
+                                      child: Text(name),
+                                  );
+                                }).toList(),
+                                onChanged: (newSelected){
+                                  setState(() {
+                                    selectedRoomCategory = newSelected as String;
+                                  });
+                                },
+                                style:TextStyle(color:Colors.grey, fontSize: 20,),
+                                icon: Icon(Icons.arrow_drop_down_outlined),
+                                isExpanded: true,
+                              ),
                             ),
                           ),
 
