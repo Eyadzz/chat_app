@@ -1,6 +1,6 @@
-import 'package:chat_app/AppProvider.dart';
-import 'package:chat_app/database/DatabaseHelper.dart';
-import 'package:chat_app/model/Room.dart';
+import 'package:chat_app_sat/AppProvider.dart';
+import 'package:chat_app_sat/datebase/Utils.dart';
+import 'package:chat_app_sat/model/Room.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -19,7 +19,7 @@ class _AddRoomState extends State<AddRoom> {
 
   List <String> roomCategories= ['movies','sports','music'];
 
-  String selectedRoomCategory = 'sports ';
+  String selectedRoomCategory = 'sports';
 
   bool isLoading=false;
 
@@ -98,38 +98,32 @@ class _AddRoomState extends State<AddRoom> {
                           ),
 
 
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                            child: DropdownButton(
-                              value: selectedRoomCategory,
-                              items: roomCategories.map((name) {
-                                return   DropdownMenuItem(
-                                    value: name,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(name),
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                );
-                              }).toList(),
-                              onChanged: (newSelected){
-                                setState(() {
-                                  selectedRoomCategory = newSelected as String;
-                                });
-                              },
-                              hint:Text("Select item"),
-                              style:TextStyle(color:Colors.grey, fontSize: 16),
-                              icon: Icon(Icons.arrow_drop_down_outlined),
-                              isExpanded: true,
+                          Container(
+                            margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                            decoration: ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(width: 1.0, style: BorderStyle.solid),
+                              ),
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+
+                                value: selectedRoomCategory,
+                                items: roomCategories.map((name) {
+                                  return   DropdownMenuItem(
+                                      value: name,
+                                      child: Text(name),
+                                  );
+                                }).toList(),
+                                onChanged: (newSelected){
+                                  setState(() {
+                                    selectedRoomCategory = newSelected as String;
+                                  });
+                                },
+                                style:TextStyle(color:Colors.grey, fontSize: 20,),
+                                icon: Icon(Icons.arrow_drop_down_outlined),
+                                isExpanded: true,
+                              ),
                             ),
                           ),
 
