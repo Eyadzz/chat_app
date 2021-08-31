@@ -13,7 +13,8 @@ class _LoginState extends State<Login> {
   final _loginFormKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
-  bool isPasswordSecured = true;
+  bool isLoading = false;
+  bool isPasswordHidden = false;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +32,11 @@ class _LoginState extends State<Login> {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: Text(
-              "Login",
+            title: Text("Login",
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: "Poppins_Bold",
-                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Poppins",
               ),
             ),
             centerTitle: true,
@@ -44,121 +44,120 @@ class _LoginState extends State<Login> {
             elevation: 0,
           ),
           body: Container(
-            margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                  child: Text(
-                    "Welcome Back!",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
-                    ),
-                  ), //24 bold poppins
-                ),
-                Form(
-                  key: _loginFormKey,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 3),
-                        child: TextFormField(
-                            onChanged: (newValue) {
-                              email = newValue;
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Email', //regular
-                              floatingLabelBehavior: FloatingLabelBehavior.auto,
+            padding: EdgeInsets.all(12),
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                     Container(
+                       child: Text(
+                         "Welcome Back!",
+                         style: TextStyle(
+                           fontWeight: FontWeight.bold,
+                           fontSize: 24,
+                           color:Color.fromRGBO(48,48,48,1),
+                         ),
+                       ),
+                     ),
+                    const SizedBox(height: 10,),
+                    Form(
+                        key: _loginFormKey,
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 10,),
+                            TextFormField(
+                              onChanged: (value){
+                                email=value;
+                              },
+                              decoration: InputDecoration(
+                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                labelText: "Email",
+                                labelStyle: TextStyle(color: Color.fromRGBO(121, 121, 121, 1),fontSize: 12,fontWeight: FontWeight.w400,fontFamily: "Poppins",),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter email address';
+                                }
+                                return null;
+                              },
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter email';
-                              }
-                              return null;
-                            }),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                        child: TextFormField(
-                            onChanged: (newValue) {
-                              password = newValue;
-                            },
-                            obscureText: isPasswordSecured ? true : false,
-                            decoration: InputDecoration(
-                              labelText: 'Password', //regular
-                              floatingLabelBehavior: FloatingLabelBehavior.auto,
-                              suffixIcon:IconButton(
-                                icon: Icon(isPasswordSecured? Icons.visibility_outlined : Icons.visibility_off_outlined),
-                                onPressed: (){
-                                  isPasswordSecured = !isPasswordSecured;
-                                  setState(() {});
-                                },
+                            const SizedBox(height: 10,),
+                            TextFormField(
+                              obscureText: isPasswordHidden ? true : false,
+                              onChanged: (value){
+                                password=value;
+                              },
+                              decoration: InputDecoration(
+                                suffixIcon:IconButton(
+                                  icon: Icon(isPasswordHidden? Icons.visibility_off_outlined : Icons.visibility_outlined),
+                                  onPressed: (){
+                                    isPasswordHidden = !isPasswordHidden;
+                                    setState(() {});
+                                  },
+                                ),
+                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                labelText: "Password",
+                                labelStyle: TextStyle(color: Color.fromRGBO(121, 121, 121, 1),fontSize: 12,fontWeight: FontWeight.w400,fontFamily: "Poppins",),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter password';
+                                }
+                                return null;
+                              },
+                            ),
+                            Container(
+
+                              padding: EdgeInsets.fromLTRB(0, 30, 240, 0),
+                              child: InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  child: Text(
+                                    "Forgot password?",
+                                    style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400, fontFamily: "Poppins",color:Color.fromRGBO(48,48,48,1),),
+                                  ),
+                                ),
                               ),
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter password';
-                              }
-                              return null;
-                            }),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 3, 0, 10),
-                  child: InkWell(
-                    onTap: () {},
-                    child: Container(
-                      child: Text(
-                        "Forgot password?",
-                        style: TextStyle(fontSize: 12, fontFamily: "Poppins"),
-                      ),
+                            const SizedBox(height: 40,),
+                            isLoading? Center(
+                                child: CircularProgressIndicator()
+                            ) : ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(53,152,219,1)),
+                                  shadowColor: MaterialStateProperty.all<Color>(Colors.black)),
+                              onPressed: logInAccount,
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: Text("Login",style: TextStyle(color: Colors.white,fontSize: 14, fontFamily: "Poppins",),)
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward_outlined,
+                                      color: Colors.white,
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        )
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 8),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      logInAccount();
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Icon(
-                            Icons.arrow_forward,
-                            color: Colors.white,
-                          )
-                        ],
+                    Container(
+                      padding: EdgeInsets.fromLTRB(0,40,0,0),
+                      child: InkWell(
+                        onTap: (){},
+                        child: Text("Or Create My Account", style: TextStyle(fontSize: 14,color: Color.fromRGBO(80,80,80,1),fontWeight: FontWeight.w300, fontFamily: "Poppins"),
+                        )
                       ),
                     ),
-                  ),
-                  //14 Poppins Semibold
+                  ],
                 ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    child: Text(
-                      "Or Create My Account",
-                      style: TextStyle(fontSize: 14, fontFamily: "Poppins"),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ),
@@ -184,7 +183,6 @@ class _LoginState extends State<Login> {
       showErrorMessage(
           e.message ?? "Email or Password is wrong please try again");
     } catch (e) {
-      //print(e);
     }
   }
 
