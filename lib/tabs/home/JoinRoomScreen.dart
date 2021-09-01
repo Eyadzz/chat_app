@@ -1,9 +1,9 @@
 import 'package:chat_app/components/DefaultAppBar.dart';
-import 'package:chat_app/roomDetails/RoomDetailsScreen.dart';
+import 'package:chat_app/tabs/chat/RoomDetailsScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../Chat.dart';
+import '../chat/Chat.dart';
 
 class JoinRoomScreen extends StatefulWidget {
   static const routeName = 'JoinRoom';

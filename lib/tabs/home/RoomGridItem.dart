@@ -1,6 +1,6 @@
-import 'package:chat_app/home/JoinRoomScreen.dart';
-import 'package:chat_app/model/Room.dart';
-import 'package:chat_app/roomDetails/RoomDetailsScreen.dart';
+import 'package:chat_app/tabs/home/JoinRoomScreen.dart';
+import 'package:chat_app/utility/Room.dart';
+import 'package:chat_app/tabs/chat/RoomDetailsScreen.dart';
 import 'package:flutter/material.dart';
 
 class RoomGridItem extends StatelessWidget {

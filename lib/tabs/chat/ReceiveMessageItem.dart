@@ -1,4 +1,4 @@
-import 'package:chat_app/model/Message.dart';
+import 'package:chat_app/utility/Message.dart';
 import 'package:flutter/material.dart';
 class ReceiveMessageItem extends StatefulWidget {
   Message message;

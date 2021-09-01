@@ -1,15 +1,15 @@
-import 'package:chat_app/home/AddRoom.dart';
-import 'package:chat_app/home/HomeScreen.dart';
-import 'package:chat_app/home/JoinRoomScreen.dart';
-import 'package:chat_app/roomDetails/RoomDetailsScreen.dart';
-import 'package:chat_app/Chat.dart';
+import 'package:chat_app/tabs/home/AddRoom.dart';
+import 'package:chat_app/tabs/home/HomeScreen.dart';
+import 'package:chat_app/tabs/home/JoinRoomScreen.dart';
+import 'package:chat_app/tabs/chat/RoomDetailsScreen.dart';
+import 'package:chat_app/tabs/chat/Chat.dart';
 import 'package:chat_app/tabs/login/LogInScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:chat_app/tabs/register/RegistrationScreen.dart';
 import 'package:chat_app/utility/AppProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'Chat.dart';
+import 'tabs/chat/Chat.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

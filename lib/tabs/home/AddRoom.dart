@@ -1,5 +1,5 @@
 import 'package:chat_app/components/DefaultAppBar.dart';
-import 'package:chat_app/model/Room.dart';
+import 'package:chat_app/utility/Room.dart';
 import 'package:chat_app/utility/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -19,9 +19,9 @@ class _AddRoomState extends State<AddRoom> {
   String roomName = '';
   String roomDescription = '';
 
-  List <String> roomCategories= ['Movies','Sports','Music'];
+  List <String> roomCategories= ['movies','sports','music'];
 
-  String selectedRoomCategory = 'Sports';
+  String selectedRoomCategory = 'sports';
 
   bool isLoading=false;
 

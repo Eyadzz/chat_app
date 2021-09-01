@@ -1,4 +1,4 @@
-import 'package:chat_app/model/Room.dart';
+import 'package:chat_app/utility/Room.dart';
 import 'package:flutter/material.dart';
 
 class RoomDetailsScreen extends StatelessWidget {

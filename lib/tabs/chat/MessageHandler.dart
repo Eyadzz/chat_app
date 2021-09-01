@@ -1,6 +1,6 @@
-import 'package:chat_app/components/ReceiveMessageItem.dart';
-import 'package:chat_app/components/SendMessageItem.dart';
-import 'package:chat_app/model/Message.dart';
+import 'package:chat_app/tabs/chat/ReceiveMessageItem.dart';
+import 'package:chat_app/tabs/chat/SendMessageItem.dart';
+import 'package:chat_app/utility/Message.dart';
 import 'package:chat_app/utility/AppProvider.dart';
 import 'package:chat_app/utility/User.dart';
 import 'package:flutter/material.dart';

@@ -1,14 +1,14 @@
-import 'package:chat_app/components/MessageHandler.dart';
+import 'package:chat_app/tabs/chat/MessageHandler.dart';
 import 'package:chat_app/utility/DatabaseHelper.dart';
-import 'package:chat_app/roomDetails/RoomDetailsScreen.dart';
+import 'package:chat_app/tabs/chat/RoomDetailsScreen.dart';
 import 'package:chat_app/utility/User.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'components/DefaultAppBar.dart';
-import 'utility/AppProvider.dart';
-import 'model/Message.dart';
-import 'model/Room.dart';
+import '../../components/DefaultAppBar.dart';
+import '../../utility/AppProvider.dart';
+import '../../utility/Message.dart';
+import '../../utility/Room.dart';
 
 
 class Chat extends StatefulWidget {
