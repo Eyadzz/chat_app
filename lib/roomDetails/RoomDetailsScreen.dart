@@ -72,4 +72,5 @@ class RoomDetailsScreen extends StatelessWidget {
 class RoomDetailsArgs{
   Room? room;
   RoomDetailsArgs(this.room);
+
 }

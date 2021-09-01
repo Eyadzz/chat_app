@@ -1,7 +1,9 @@
+import 'package:chat_app/utility/AppProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  
+
   @override
   final Size preferredSize; // default is 56.0
 
@@ -15,15 +17,22 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 class _CustomAppBarState extends State<CustomAppBar>{
   bool isSearching = false;
   var primaryColor = Color.fromRGBO(53,152,219,1);
+  late AppProvider provider;
 
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<AppProvider>(context);
     return AppBar(
+     /* bottom: const TabBar(
+        tabs: [
+          Tab(icon: Text("Rooms")),
+        ],
+      ),*/
       iconTheme: IconThemeData(color: Colors.white),
       title: isSearching?  null : Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(widget.s, style: TextStyle(fontSize: 25, fontFamily: "Poppins_Bold")),
+          Text(widget.s, style: TextStyle(fontSize: 20, fontFamily: "Poppins_Bold")),
         ],
       ),
       centerTitle: isSearching? false : true,
@@ -44,8 +53,7 @@ class _CustomAppBarState extends State<CustomAppBar>{
               child: TextField(
                 onSubmitted: (toSearch){
                   setState(() {
-                    toSearch = "+" +toSearch;
-                    ///set search
+                    provider.setSearch(toSearch);
                   });
                 },
                 style: TextStyle(
@@ -59,7 +67,7 @@ class _CustomAppBarState extends State<CustomAppBar>{
                   suffixIcon: new Icon(Icons.search, color: primaryColor, size: 30,),
                   fillColor: Colors.white,
                   filled: true,
-                  hintText: "Find a Room",
+                  hintText: "Search Room Name",
                   hintStyle:  TextStyle(color: primaryColor,fontWeight: FontWeight.w100,height: 1.04),
                   contentPadding: const EdgeInsets.only(
                       left: 14.0, bottom: 14.0, top: 14.0),

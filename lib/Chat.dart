@@ -5,6 +5,7 @@ import 'package:chat_app/utility/User.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'components/DefaultAppBar.dart';
 import 'utility/AppProvider.dart';
 import 'model/Message.dart';
 import 'model/Room.dart';
@@ -51,12 +52,7 @@ class _ChatState extends State<Chat> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            title: Text('Chat'),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            centerTitle: true,
-          ),
+          appBar: DefaultAppBar(room.name),
           body: Container(
             margin: EdgeInsets.symmetric(vertical: 40,horizontal: 20),
             decoration: BoxDecoration(
@@ -91,11 +87,11 @@ class _ChatState extends State<Chat> {
                       child: TextField(
                         controller: textMessageController,
                         decoration: InputDecoration(
-                            hintText: 'Enter Message',
+                            hintText: 'Type a Message',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.only(topRight: Radius.circular(10)),
                             ),
-                            contentPadding: EdgeInsets.symmetric(vertical: 1,horizontal: 8),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 8),
                         ),
                         onChanged: (txt){
                           textMessage = txt;
@@ -108,7 +104,7 @@ class _ChatState extends State<Chat> {
                       child: TextButton(
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(Colors.blue),
-                            padding: MaterialStateProperty.all(EdgeInsets.all(4)),
+                            padding: MaterialStateProperty.all(EdgeInsets.all(5)),
                             enableFeedback: true,
                           ),
                           onPressed: (){sendMessage();},

@@ -29,11 +29,12 @@ class RoomGridItem extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
+              SizedBox(height: 10),
               Image(image: AssetImage('assets/images/${room!.category}.png'),
                 width: 100,
                 height: 100,)
-              ,SizedBox(height: 10)
-              ,Text(room!.name,style: TextStyle(fontFamily: 'Poppins',fontWeight:FontWeight.bold,fontSize: 14,))
+              ,SizedBox(height: 20)
+              ,Text(room!.name,style: TextStyle(fontFamily: 'Poppins',fontWeight:FontWeight.w600,fontSize: 14,))
             ],
           ),
         ),

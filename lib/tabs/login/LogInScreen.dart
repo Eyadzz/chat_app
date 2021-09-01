@@ -1,4 +1,5 @@
 import 'package:chat_app/components/AlertMessages.dart';
+import 'package:chat_app/components/DefaultAppBar.dart';
 import 'package:chat_app/home/HomeScreen.dart';
 import 'package:chat_app/tabs/register/RegistrationScreen.dart';
 import 'package:chat_app/utility/DatabaseHelper.dart';
@@ -39,17 +40,7 @@ class _LoginState extends State<Login> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            title: Text("Login",
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: "Poppins_Bold",
-              ),
-            ),
-            centerTitle: true,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-          ),
+          appBar: DefaultAppBar("Login"),
           body: Container(
             padding: EdgeInsets.all(12),
             child: Center(

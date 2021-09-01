@@ -1,3 +1,4 @@
+import 'package:chat_app/components/DefaultAppBar.dart';
 import 'package:chat_app/model/Room.dart';
 import 'package:chat_app/utility/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,8 @@ class _AddRoomState extends State<AddRoom> {
 
   bool isLoading=false;
 
+  var labelTextStyle = TextStyle(fontSize: 16, fontFamily: "Poppins");
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -41,12 +44,7 @@ class _AddRoomState extends State<AddRoom> {
           ),
           Scaffold(
             backgroundColor: Colors.transparent,
-            appBar: AppBar(title: Text('Chat App', style: TextStyle(fontSize: 20,
-              fontFamily: "Poppins_Bold",),),
-              centerTitle: true,
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-            ),
+            appBar: DefaultAppBar("Chat App"),
             body: Center(
               child: Container(
                 padding: EdgeInsets.all(12),
@@ -62,118 +60,118 @@ class _AddRoomState extends State<AddRoom> {
                     ]
                 ),
                 margin: EdgeInsets.symmetric(vertical: 32,horizontal: 12),
-                child: ListView(
-                  //    crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text('Create New Room',style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold
-                    ),
-                      textAlign: TextAlign.center,
-                    ),
-                    Image(image: AssetImage('assets/images/group-1824146_1280.png')),
-                    Form(
-                      key: _addRoomFormKey,
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            onChanged: (text){
-                              roomName = text;
-                            },
-                            keyboardType: TextInputType.name,
-
-                            decoration: InputDecoration(
-                                labelText: 'Enter Room Name',
-                                floatingLabelBehavior: FloatingLabelBehavior.auto
-                            ),
-                            // The validator receives the text that the user has entered.
-                            validator: (value) {
-                              if (value == null || value.isEmpty ) {
-                                return 'Please enter Room Name';
-                              }
-                              if (value.length<3) {
-                                return 'Room name must exceed 3 characters';
-                              }
-                              return null;
-                            },
-                          ),
-
-
-                          Container(
-                            margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                            decoration: ShapeDecoration(
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(width: 1.0, style: BorderStyle.solid),
-                              ),
-                            ),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton(
-
-                                value: selectedRoomCategory,
-                                items: roomCategories.map((name) {
-                                  return   DropdownMenuItem(
-                                      value: name,
-                                      child: Text(name),
-                                  );
-                                }).toList(),
-                                onChanged: (newSelected){
-                                  setState(() {
-                                    selectedRoomCategory = newSelected as String;
-                                  });
-                                },
-                                style:TextStyle(color:Colors.grey, fontSize: 20,),
-                                icon: Icon(Icons.arrow_drop_down_outlined),
-                                isExpanded: true,
-                              ),
-                            ),
-                          ),
-
-
-                          TextFormField(
-                            onChanged: (text){
-                              roomDescription = text;
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Enter Room Description',
-                              floatingLabelBehavior: FloatingLabelBehavior.auto,
-                            ),
-                            // The validator receives the text that the user has entered.
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty ) {
-                                return 'Please enter room Description';
-                              }
-                              if (value.length<10) {
-                                return 'Room name must exceed 10 characters';
-                              }
-                              return null;
-                            },
-                          )
-                        ],
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ListView(
+                    //    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text('Create New Room',style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontFamily: "Poppins_Bold"
                       ),
-                    ),
+                        textAlign: TextAlign.center,
+                      ),
+                      Image(image: AssetImage('assets/images/group-1824146_1280.png')),
+                      Form(
+                        key: _addRoomFormKey,
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              onChanged: (text){
+                                roomName = text;
+                              },
+                              keyboardType: TextInputType.name,
 
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(10,50,10,10),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0),
-                              )),
-                          padding: MaterialStateProperty.all(EdgeInsets.all(20)),
-                          minimumSize: MaterialStateProperty.all(Size(40,50)),
+                              decoration: InputDecoration(
+                                  labelText: 'Enter Room Name',
+                                  labelStyle: labelTextStyle,
+                                  floatingLabelBehavior: FloatingLabelBehavior.auto
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty ) {
+                                  return 'Please enter Room Name';
+                                }
+                                if (value.length<3) {
+                                  return 'Room name must exceed 3 characters';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 25,),
+                            Container(
+                              decoration: ShapeDecoration(
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(width: 1.0, style: BorderStyle.solid),
+                                ),
+                              ),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  value: selectedRoomCategory,
+                                  items: roomCategories.map((name) {
+                                    return   DropdownMenuItem(
+                                        value: name,
+                                        child: Text(name,textAlign: TextAlign.right,),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newSelected){
+                                    setState(() {
+                                      selectedRoomCategory = newSelected as String;
+                                    });
+                                  },
+                                  style:TextStyle(color:Colors.grey, fontSize: 14, fontFamily: "Poppins"),
+                                  icon: Icon(Icons.arrow_drop_down_outlined),
+                                  isExpanded: true,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 25,),
+                            TextFormField(
+                              onChanged: (text){
+                                roomDescription = text;
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'Enter Room Description',
+                                labelStyle: labelTextStyle,
+                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                              ),
+                              // The validator receives the text that the user has entered.
+                              validator: (String? value) {
+                                if (value == null || value.isEmpty ) {
+                                  return 'Please enter room Description';
+                                }
+                                if (value.length<10) {
+                                  return 'Room name must exceed 10 characters';
+                                }
+                                return null;
+                              },
+                            )
+                          ],
                         ),
-                          onPressed: (){
-                        if(_addRoomFormKey.currentState?.validate()==true){
-                          addRoom();
-                        }
-                      },
-                          child: isLoading?Center(child:CircularProgressIndicator() ,):
-                          Text('Create')),
-                    )
+                      ),
 
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10,50,10,10),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25.0),
+                                )),
+                            padding: MaterialStateProperty.all(EdgeInsets.all(10)),
+                            minimumSize: MaterialStateProperty.all(Size(40,50)),
+                          ),
+                            onPressed: (){
+                          if(_addRoomFormKey.currentState?.validate()==true){
+                            addRoom();
+                          }
+                        },
+                            child: isLoading?Center(child:CircularProgressIndicator() ,):
+                            Text('Create', style: TextStyle(fontSize: 16, fontFamily: "Poppins_Bold"),)),
+                      )
+
+                    ],
+                  ),
                 ),
               ),
             ),

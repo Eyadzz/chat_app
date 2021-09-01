@@ -1,3 +1,4 @@
+import 'package:chat_app/components/DefaultAppBar.dart';
 import 'package:chat_app/roomDetails/RoomDetailsScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,18 +30,10 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
       ),
       Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          title: Text(args.room!.name, style: TextStyle(
-            fontSize: 20,
-            fontFamily: "Poppins_Bold",
-          ),),
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
+        appBar:DefaultAppBar(args.room!.name),
         body: Container(
             padding: EdgeInsets.only(top: 40,bottom: 12,left: 12,right:12),
-            margin: EdgeInsets.symmetric(vertical: 24, horizontal: 24),
+            margin: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
             decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(color: Colors.black12, offset: Offset(4, 8),blurRadius: 8)
@@ -85,7 +78,7 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
                             primary: Colors.blue,
                           ),
                           onPressed: () => joinroom(args),
-                          child: Text('Join',style: TextStyle(fontWeight: FontWeight.w500,fontFamily: 'Poppins',fontSize: 16),))
+                          child: Text('Join',style: TextStyle(fontWeight: FontWeight.w700,fontFamily: 'Poppins',fontSize: 16),))
                     ],
                   )),
                 ],

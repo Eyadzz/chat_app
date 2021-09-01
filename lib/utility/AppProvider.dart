@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class AppProvider extends ChangeNotifier{
 
   User? currentUser;
+  String toSearch="";
 
   void updateUser(User? user){
     currentUser=user;
@@ -12,6 +13,15 @@ class AppProvider extends ChangeNotifier{
 
   User? getUser(){
     return currentUser;
+  }
+
+  void setSearch(String toSearch) {
+    this.toSearch=toSearch;
+  }
+
+  String getToSearch()
+  {
+    return toSearch;
   }
 
 }

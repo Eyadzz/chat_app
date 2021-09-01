@@ -1,4 +1,5 @@
 import 'package:chat_app/components/AlertMessages.dart';
+import 'package:chat_app/components/DefaultAppBar.dart';
 import 'package:chat_app/tabs/login/LogInScreen.dart';
 import 'package:chat_app/utility/DatabaseHelper.dart';
 import 'package:chat_app/utility/AppProvider.dart';
@@ -46,17 +47,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            title: Text("Create Account",
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: "Poppins_Bold",
-              ),
-            ),
-            centerTitle: true,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-          ),
+          appBar: DefaultAppBar("Create Account"),
           body: Container(
             padding: EdgeInsets.all(12),
             child: Center(
