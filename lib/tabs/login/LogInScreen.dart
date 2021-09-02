@@ -72,7 +72,7 @@ class _LoginState extends State<Login> {
                               decoration: InputDecoration(
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 labelText: "Email",
-                                labelStyle: TextStyle(color: Color.fromRGBO(121, 121, 121, 1),fontSize: 12,fontWeight: FontWeight.w400,fontFamily: "Poppins", height: -1.5),
+                                labelStyle: TextStyle(color: Color.fromRGBO(121, 121, 121, 1),fontSize: 12,fontWeight: FontWeight.w400,fontFamily: "Poppins"),
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -97,7 +97,7 @@ class _LoginState extends State<Login> {
                                 ),
                                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 labelText: "Password",
-                                labelStyle: TextStyle(color: Color.fromRGBO(121, 121, 121, 1),fontSize: 12,fontWeight: FontWeight.w400,fontFamily: "Poppins", height: -1.5),
+                                labelStyle: TextStyle(color: Color.fromRGBO(121, 121, 121, 1),fontSize: 12,fontWeight: FontWeight.w400,fontFamily: "Poppins"),
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {

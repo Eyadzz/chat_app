@@ -25,7 +25,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool isLoading = false;
   bool isPasswordSecured = true;
   final database = FirebaseFirestore.instance;
-  var labelTextStyle = TextStyle(fontSize: 12, fontFamily: "Poppins", height: -1.5);
+  var labelTextStyle = TextStyle(fontSize: 12, fontFamily: "Poppins");
   var buttonTextStyle = TextStyle(fontSize: 14, fontFamily: "Poppins", color: Colors.grey);
   late AppProvider provider;
 

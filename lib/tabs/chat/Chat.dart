@@ -73,7 +73,6 @@ class _ChatState extends State<Chat> {
                           return MessageHandler(message: snapshot.data!.docs[index].data());
                         },
                         itemCount: snapshot.data?.size??0,
-                        reverse: true,
                         );
                       }else{
                         return Center(child: CircularProgressIndicator(),);

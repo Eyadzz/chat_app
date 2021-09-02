@@ -1,3 +1,4 @@
+import 'package:chat_app/tabs/home/HomeScreen.dart';
 import 'package:flutter/material.dart';
 
 class DefaultAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -26,7 +27,17 @@ class _DefaultAppBarState extends State<DefaultAppBar>{
       centerTitle: true,
       backgroundColor: Colors.transparent,
       elevation: 0,
-
+      actions: [
+        PopupMenuButton(
+            onSelected: (value)=>Navigator.pushReplacementNamed(context, HomeScreen.routeName),
+            itemBuilder:(context) => [
+              PopupMenuItem(
+                child: Text("Leave Room"),
+                value: 1,
+              )
+            ],
+        ),
+      ],
     );
   }
 
