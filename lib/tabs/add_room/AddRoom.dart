@@ -4,7 +4,7 @@ import 'package:chat_app/utility/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'HomeScreen.dart';
+import '../home/HomeScreen.dart';
 
 class AddRoom extends StatefulWidget {
   static const String routeName = 'addRoom';
@@ -44,7 +44,7 @@ class _AddRoomState extends State<AddRoom> {
           ),
           Scaffold(
             backgroundColor: Colors.transparent,
-            appBar: DefaultAppBar("Chat App"),
+            appBar: DefaultAppBar("Chat App",Container()),
             body: Center(
               child: Container(
                 padding: EdgeInsets.all(12),

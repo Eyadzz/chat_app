@@ -30,7 +30,7 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
       ),
       Scaffold(
         backgroundColor: Colors.transparent,
-        appBar:DefaultAppBar(args.room!.name),
+        appBar:DefaultAppBar(args.room!.name,Container()),
         body: Container(
             padding: EdgeInsets.only(top: 40,bottom: 12,left: 12,right:12),
             margin: EdgeInsets.symmetric(vertical: 30, horizontal: 30),

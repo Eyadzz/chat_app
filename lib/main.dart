@@ -1,6 +1,6 @@
-import 'package:chat_app/tabs/home/AddRoom.dart';
+import 'package:chat_app/tabs/add_room/AddRoom.dart';
 import 'package:chat_app/tabs/home/HomeScreen.dart';
-import 'package:chat_app/tabs/home/JoinRoomScreen.dart';
+import 'package:chat_app/tabs/join_room/JoinRoomScreen.dart';
 import 'package:chat_app/tabs/chat/RoomDetailsScreen.dart';
 import 'package:chat_app/tabs/chat/Chat.dart';
 import 'package:chat_app/tabs/login/LogInScreen.dart';

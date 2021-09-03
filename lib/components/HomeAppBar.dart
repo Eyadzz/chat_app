@@ -2,19 +2,19 @@ import 'package:chat_app/utility/AppProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
 
   @override
   final Size preferredSize; // default is 56.0
 
-  CustomAppBar(this.s, {Key? key, this.title}) : preferredSize = Size.fromHeight(70.0),super(key: key);
+  HomeAppBar(this.s, {Key? key, this.title}) : preferredSize = Size.fromHeight(70.0),super(key: key);
   var title;
   String s;
   @override
-  _CustomAppBarState createState() => _CustomAppBarState();
+  _HomeAppBarState createState() => _HomeAppBarState();
 }
 
-class _CustomAppBarState extends State<CustomAppBar>{
+class _HomeAppBarState extends State<HomeAppBar>{
   bool isSearching = false;
   var primaryColor = Color.fromRGBO(53,152,219,1);
   late AppProvider provider;
@@ -23,11 +23,6 @@ class _CustomAppBarState extends State<CustomAppBar>{
   Widget build(BuildContext context) {
     provider = Provider.of<AppProvider>(context);
     return AppBar(
-     /* bottom: const TabBar(
-        tabs: [
-          Tab(icon: Text("Rooms")),
-        ],
-      ),*/
       iconTheme: IconThemeData(color: Colors.white),
       title: isSearching?  null : Column(
         mainAxisAlignment: MainAxisAlignment.center,

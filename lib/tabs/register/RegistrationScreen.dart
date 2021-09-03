@@ -47,7 +47,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: DefaultAppBar("Create Account"),
+          appBar: DefaultAppBar("Create Account",Container()),
           body: Container(
             padding: EdgeInsets.all(12),
             child: Center(

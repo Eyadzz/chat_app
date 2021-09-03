@@ -40,7 +40,7 @@ class _LoginState extends State<Login> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: DefaultAppBar("Login"),
+          appBar: DefaultAppBar("Login",Container()),
           body: Container(
             padding: EdgeInsets.all(12),
             child: Center(

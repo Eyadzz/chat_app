@@ -1,4 +1,5 @@
 import 'package:chat_app/tabs/chat/MessageHandler.dart';
+import 'package:chat_app/tabs/home/HomeScreen.dart';
 import 'package:chat_app/utility/DatabaseHelper.dart';
 import 'package:chat_app/tabs/chat/RoomDetailsScreen.dart';
 import 'package:chat_app/utility/User.dart';
@@ -39,6 +40,15 @@ class _ChatState extends State<Chat> {
     room = args.room!;
     messageRef = getMessageWithConverter(room.id);
     provider = Provider.of<AppProvider>(context);
+    var popUpMenu = PopupMenuButton(
+      onSelected: (value)=>Navigator.pushReplacementNamed(context, HomeScreen.routeName),
+      itemBuilder:(context) => [
+        PopupMenuItem(
+          child: Text("Leave Room" , style: TextStyle(fontSize: 14, fontFamily: "Poppins_Bold")),
+          value: 1,
+        )
+      ],
+    );
     final Stream<QuerySnapshot<Message>> messageStream = messageRef.orderBy('time').snapshots();
     return Stack(
       children: [
@@ -52,7 +62,7 @@ class _ChatState extends State<Chat> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: DefaultAppBar(room.name),
+          appBar: DefaultAppBar(room.name, popUpMenu),
           body: Container(
             margin: EdgeInsets.symmetric(vertical: 40,horizontal: 20),
             decoration: BoxDecoration(

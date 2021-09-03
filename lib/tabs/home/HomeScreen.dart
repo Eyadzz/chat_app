@@ -1,10 +1,10 @@
-import 'package:chat_app/components/CustomAppBar.dart';
+import 'package:chat_app/components/HomeAppBar.dart';
 import 'package:chat_app/components/SideMenu.dart';
 import 'package:chat_app/utility/DatabaseHelper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/utility/Room.dart';
-import 'AddRoom.dart';
+import '../add_room/AddRoom.dart';
 import 'RoomGridItem.dart';
 class HomeScreen extends StatefulWidget {
 
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               Navigator.pushNamed(context, AddRoom.routeName);
             },
             child: Icon(Icons.add)),
-        appBar: CustomAppBar("Chat App"),
+        appBar: HomeAppBar("Chat App"),
         body: Column(
 
           children: [

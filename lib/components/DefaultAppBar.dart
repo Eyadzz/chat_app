@@ -6,8 +6,9 @@ class DefaultAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize; // default is 56.0
 
-  DefaultAppBar(this.appbarTitle, {Key? key}) : preferredSize = Size.fromHeight(60.0),super(key: key);
+  DefaultAppBar(this.appbarTitle, this.actions, {Key? key}) : preferredSize = Size.fromHeight(60.0),super(key: key);
   String appbarTitle;
+  Widget actions;
   @override
   _DefaultAppBarState createState() => _DefaultAppBarState();
 }
@@ -28,15 +29,7 @@ class _DefaultAppBarState extends State<DefaultAppBar>{
       backgroundColor: Colors.transparent,
       elevation: 0,
       actions: [
-        PopupMenuButton(
-            onSelected: (value)=>Navigator.pushReplacementNamed(context, HomeScreen.routeName),
-            itemBuilder:(context) => [
-              PopupMenuItem(
-                child: Text("Leave Room"),
-                value: 1,
-              )
-            ],
-        ),
+        widget.actions
       ],
     );
   }
