@@ -29,6 +29,7 @@ dependencies:
   provider: ^6.0.0
   fluttertoast: ^8.0.8
   intl: ^0.17.0
+  flutter_native_splash: ^1.2.1
 
 
 
@@ -85,3 +86,11 @@ flutter:
     - family: Poppins
       fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
+
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: "assets/images/logo@3x.png"
+  andriod: true
+  ios: true
+  andriod_gravity: fill
