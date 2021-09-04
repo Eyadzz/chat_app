@@ -1,8 +1,6 @@
 import 'package:chat_app/tabs/login/LogInScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
   static const routeName = 'side menu';

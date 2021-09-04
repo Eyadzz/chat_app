@@ -1,6 +1,7 @@
 import 'package:chat_app/components/AlertMessages.dart';
 import 'package:chat_app/components/DefaultAppBar.dart';
 import 'package:chat_app/tabs/home/HomeScreen.dart';
+
 import 'package:chat_app/tabs/register/RegistrationScreen.dart';
 import 'package:chat_app/utility/DatabaseHelper.dart';
 import 'package:chat_app/utility/AppProvider.dart';

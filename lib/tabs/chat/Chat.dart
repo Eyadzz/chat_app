@@ -1,5 +1,5 @@
 import 'package:chat_app/tabs/chat/MessageHandler.dart';
-import 'package:chat_app/tabs/home/HomeScreen.dart';
+import 'package:chat_app/tabs/home/BrowseScreen.dart';
 import 'package:chat_app/utility/DatabaseHelper.dart';
 import 'package:chat_app/tabs/chat/RoomDetailsScreen.dart';
 import 'package:chat_app/utility/User.dart';
@@ -37,11 +37,11 @@ class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments as RoomDetailsArgs;
-    room = args.room!;
+    room = args.room;
     messageRef = getMessageWithConverter(room.id);
     provider = Provider.of<AppProvider>(context);
     var popUpMenu = PopupMenuButton(
-      onSelected: (value)=>Navigator.pushReplacementNamed(context, HomeScreen.routeName),
+      onSelected: (value)=>Navigator.pushReplacementNamed(context, BrowseScreen.routeName),
       itemBuilder:(context) => [
         PopupMenuItem(
           child: Text("Leave Room" , style: TextStyle(fontSize: 14, fontFamily: "Poppins_Bold")),

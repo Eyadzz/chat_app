@@ -1,4 +1,5 @@
 import 'package:chat_app/tabs/add_room/AddRoom.dart';
+import 'package:chat_app/tabs/home/BrowseScreen.dart';
 import 'package:chat_app/tabs/home/HomeScreen.dart';
 import 'package:chat_app/tabs/join_room/JoinRoomScreen.dart';
 import 'package:chat_app/tabs/chat/RoomDetailsScreen.dart';
@@ -10,6 +11,7 @@ import 'package:chat_app/utility/AppProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'tabs/chat/Chat.dart';
+import 'package:chat_app/tabs/home/RoomsScreen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,9 +33,11 @@ class MyApp extends StatelessWidget {
             AddRoom.routeName:(buildContext)=>AddRoom(),
             RegistrationScreen.routeName:(buildContext)=>RegistrationScreen(),
             Login.routeName:(context)=>Login(),
-            HomeScreen.routeName:(buildContext)=>HomeScreen(),
+            BrowseScreen.routeName:(buildContext)=>BrowseScreen(),
             RoomDetailsScreen.routeName:(buildContext)=>RoomDetailsScreen(),
             Chat.routeName:(buildContext)=>Chat(),
+            RoomsScreen.routeName:(buildContext) => RoomsScreen(),
+            HomeScreen.routeName:(buildContext) => HomeScreen(),
           },
           initialRoute: Login.routeName,
         );

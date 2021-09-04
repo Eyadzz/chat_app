@@ -4,7 +4,7 @@ import 'package:chat_app/utility/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../home/HomeScreen.dart';
+import '../home/BrowseScreen.dart';
 
 class AddRoom extends StatefulWidget {
   static const String routeName = 'addRoom';
@@ -194,7 +194,7 @@ class _AddRoomState extends State<AddRoom> {
         isLoading=false;
       });
       Fluttertoast.showToast(msg: 'Room Added Successfully', toastLength: Toast.LENGTH_LONG);
-      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BrowseScreen()));
     });
   }
 }
