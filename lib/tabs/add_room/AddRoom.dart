@@ -1,4 +1,5 @@
 import 'package:chat_app/components/DefaultAppBar.dart';
+import 'package:chat_app/tabs/home/HomeScreen.dart';
 import 'package:chat_app/utility/Room.dart';
 import 'package:chat_app/utility/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
@@ -194,7 +195,7 @@ class _AddRoomState extends State<AddRoom> {
         isLoading=false;
       });
       Fluttertoast.showToast(msg: 'Room Added Successfully', toastLength: Toast.LENGTH_LONG);
-      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BrowseScreen()));
+      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomeScreen()));
     });
   }
 }

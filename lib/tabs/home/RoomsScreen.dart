@@ -13,7 +13,7 @@ class RoomsScreen extends StatefulWidget {
   RoomsScreen() {
     roomCollectionRef = getRoomsCollectionWithConverter();
   }
-  static const String routeName = 'My Rooms';
+  static const String routeName = 'MyRooms';
   @override
   _RoomsScreenState createState() => _RoomsScreenState();
 }

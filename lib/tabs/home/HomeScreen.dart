@@ -1,4 +1,5 @@
 
+import 'package:chat_app/components/HomeAppBar.dart';
 import 'package:chat_app/components/SideMenu.dart';
 import 'package:chat_app/tabs/add_room/AddRoom.dart';
 import 'package:chat_app/utility/AppProvider.dart';
@@ -31,7 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     ),
   ];
-
+  var tapBar = const TabBar(
+    tabs: [
+      Tab(child: const Text(BrowseScreen.routeName),),
+      Tab(child: const Text(RoomsScreen.routeName),),
+    ],
+  );
   @override
   Widget build(BuildContext context) {
     provider = Provider.of<AppProvider>(context);
@@ -49,15 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
             length: 2,
             child: Scaffold(
               drawer: SideMenu(),
-              appBar: AppBar(
-                bottom: const TabBar(
-                tabs: [
-                  Tab(child: const Text(BrowseScreen.routeName),),
-                Tab(child: const Text(RoomsScreen.routeName),),
-                ],
-                ),
-                title: const Text('Chat App'),centerTitle: true,
-                ),
+              appBar: HomeAppBar("Chat App", tapBar: tapBar,),
               backgroundColor: Colors.transparent,
               floatingActionButton: index == 0 ? FloatingActionButton(
                 onPressed: () {

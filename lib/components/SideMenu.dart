@@ -1,6 +1,8 @@
 import 'package:chat_app/tabs/login/LogInScreen.dart';
+import 'package:chat_app/utility/AppProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
   static const routeName = 'side menu';
@@ -13,9 +15,11 @@ class SideMenu extends StatefulWidget {
 
 class _SideMenuState extends State<SideMenu> {
   var colorLightTheme = Colors.white;
+  late AppProvider provider;
 
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<AppProvider>(context);
     return Drawer(
       child: Container(
         color: Colors.white,
@@ -40,6 +44,7 @@ class _SideMenuState extends State<SideMenu> {
                   )),
               contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
               onTap: () {
+                provider.Logout();
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder:  (context) => Login()),
