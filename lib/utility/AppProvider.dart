@@ -24,4 +24,9 @@ class AppProvider extends ChangeNotifier{
     return toSearch;
   }
 
+  void Logout()
+  {
+    currentUser=null;
+  }
+
 }

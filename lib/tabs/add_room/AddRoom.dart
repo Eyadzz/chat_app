@@ -1,10 +1,11 @@
 import 'package:chat_app/components/DefaultAppBar.dart';
+import 'package:chat_app/tabs/home/HomeScreen.dart';
 import 'package:chat_app/utility/Room.dart';
 import 'package:chat_app/utility/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../home/HomeScreen.dart';
+import '../home/BrowseScreen.dart';
 
 class AddRoom extends StatefulWidget {
   static const String routeName = 'addRoom';

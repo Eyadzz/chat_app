@@ -7,9 +7,10 @@ class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize; // default is 56.0
 
-  HomeAppBar(this.s, {Key? key, this.title}) : preferredSize = Size.fromHeight(70.0),super(key: key);
+  HomeAppBar(this.s, {Key? key, this.title, this.tapBar}) : preferredSize = Size.fromHeight(110.0),super(key: key);
   var title;
   String s;
+  var tapBar;
   @override
   _HomeAppBarState createState() => _HomeAppBarState();
 }
@@ -18,7 +19,6 @@ class _HomeAppBarState extends State<HomeAppBar>{
   bool isSearching = false;
   var primaryColor = Color.fromRGBO(53,152,219,1);
   late AppProvider provider;
-
   @override
   Widget build(BuildContext context) {
     provider = Provider.of<AppProvider>(context);
@@ -92,6 +92,7 @@ class _HomeAppBarState extends State<HomeAppBar>{
           },
         ),
       ],
+      bottom: widget.tapBar,
     );
   }
 }

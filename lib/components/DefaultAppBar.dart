@@ -1,4 +1,3 @@
-import 'package:chat_app/tabs/home/HomeScreen.dart';
 import 'package:flutter/material.dart';
 
 class DefaultAppBar extends StatefulWidget implements PreferredSizeWidget {

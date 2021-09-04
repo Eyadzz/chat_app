@@ -9,7 +9,7 @@ class RoomDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final args=ModalRoute.of(context)!.settings.arguments as RoomDetailsArgs;
-    room=args.room!;
+    room=args.room;
     return Stack(
         children: [
           Container(
@@ -70,7 +70,6 @@ class RoomDetailsScreen extends StatelessWidget {
 }
 
 class RoomDetailsArgs{
-  Room? room;
+  Room room;
   RoomDetailsArgs(this.room);
-
 }
