@@ -57,6 +57,7 @@ class _HomeAppBarState extends State<HomeAppBar>{
                 decoration:  InputDecoration(
 
                   prefixIcon: IconButton(icon: Icon(Icons.close, color: primaryColor), onPressed: (){setState(() {
+                    provider.setSearch('');
                     isSearching=false;
                   });},),
                   suffixIcon: new Icon(Icons.search, color: primaryColor, size: 30,),
