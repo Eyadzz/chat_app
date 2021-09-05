@@ -116,6 +116,7 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
     userDoc.set(user);
 
     roomDoc.set(room).then((value) {
+      provider.setSearch('');
       Navigator.pushNamed(
         context,
         Chat.routeName,

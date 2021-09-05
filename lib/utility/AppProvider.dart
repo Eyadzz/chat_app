@@ -17,6 +17,7 @@ class AppProvider extends ChangeNotifier{
 
   void setSearch(String toSearch) {
     this.toSearch=toSearch;
+    notifyListeners();
   }
 
   String getToSearch()

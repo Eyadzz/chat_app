@@ -48,16 +48,32 @@ class _BrowseScreenState extends State<BrowseScreen>{
                   ),
                 );
               }
-              return GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 4,
-                      mainAxisSpacing: 4),
-                  itemBuilder: (buildContext, index) {
-                    return RoomGridItem(roomsList[index],false);
-                  },
-                  itemCount: roomsList.length);
-            }
+              if(provider.getToSearch()=='')
+                {
+                  return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 4,
+                          mainAxisSpacing: 4),
+                      itemBuilder: (buildContext, index) {
+                        return RoomGridItem(roomsList[index],false);
+                      },
+                      itemCount: roomsList.length);
+                }
+              else
+                {
+                  List<Room> foundRooms=searchRoom(provider.getToSearch(), roomsList);
+                  return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 4,
+                          mainAxisSpacing: 4),
+                      itemBuilder: (buildContext, index) {
+                        return RoomGridItem(foundRooms[index],false);
+                      },
+                      itemCount: foundRooms.length);
+                }
+                }
         return Center(
         child: CircularProgressIndicator(),
         );
@@ -70,92 +86,12 @@ class _BrowseScreenState extends State<BrowseScreen>{
 
 }
 
+List<Room> searchRoom(String text, List<Room> roomsList){
 
-
-// FutureBuilder<QuerySnapshot<Room>>(
-// future: widget.roomCollectionRef.get(),
-// builder: (BuildContext context,
-//     AsyncSnapshot<QuerySnapshot<Room>> snapshot) {
-// if (snapshot.hasError) {
-// return Text('something went wrong!');
-// } else if (snapshot.connectionState == ConnectionState.done) {
-// final List<Room> roomsList = snapshot.data?.docs
-//     .map((singleDoc) => singleDoc.data())
-//     .toList() ??
-// [];
-
-
-
-
-// child:loading?FutureBuilder<QuerySnapshot<Room>>(
-// future: widget.roomRef.get(),
-// builder: (BuildContext context,
-//     AsyncSnapshot<QuerySnapshot<Room>> snapshot) {
-// if (snapshot.hasError) {
-// return Text('something went wrong!');
-// } else if (snapshot.connectionState == ConnectionState.done) {
-// List<Room> roomsList = snapshot.data?.docs
-//     .map((singleDoc) => singleDoc.data())
-//     .toList() ??
-// [];
-// if(roomsList.length==0) {
-// return Center(
-// child: Text(
-// '0',
-// style: TextStyle(
-// fontSize: 14,
-// fontWeight: FontWeight.bold,
-// ),
-// ),
-// );
-// } else {
-// List<Room> roomsList1=[];
-// if(provider.toSearch!=''){
-// for(int i= 0;i<roomsList.length;i++){
-// String temp =roomsList[i].name.toLowerCase();
-// if (temp.contains(provider.toSearch.toLowerCase(),))
-// roomsList1.add(roomsList[i]);
-// }
-// roomsList= roomsList1;
-// }
-// if(roomsList.length==0){
-// return Center(
-// child: Text(
-// 'Nothing found',
-// style: TextStyle(
-// fontSize: 14,
-// fontWeight: FontWeight.bold,
-// ),
-// ),
-// );
-// }
-// return GridView.builder(
-// gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-// crossAxisCount: 2,
-// crossAxisSpacing: 4,
-// mainAxisSpacing: 4),
-// itemBuilder: (buildContext, index) {
-// return RoomGridItem(roomsList[index]);
-// },
-// itemCount: roomsList.length);
-// }
-// } else if (snapshot.hasData && snapshot.data == null) {
-// return Center(
-// child: Text(
-// 'RoomsNo',
-// style: TextStyle(
-// fontSize: 14,
-// fontWeight: FontWeight.bold,
-// ),
-// ),
-// );
-// }
-// return Center(
-// child: CircularProgressIndicator(),
-// );
-// },
-// )
-// : Center(
-// child: CircularProgressIndicator(),
-// ),
-// );
+  List<Room> foundRooms=[];
+  for(int i=0; i< roomsList.length; i++){
+    if(roomsList[i].name==text)
+      foundRooms.add(roomsList[i]);
+  }
+  return foundRooms;
+}
