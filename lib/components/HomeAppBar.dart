@@ -46,7 +46,7 @@ class _HomeAppBarState extends State<HomeAppBar>{
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20,8.0,20,8),
               child: TextField(
-                onSubmitted: (toSearch){
+                onChanged: (toSearch){
                   setState(() {
                     provider.setSearch(toSearch);
                   });

@@ -183,6 +183,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     } on FirebaseAuthException catch (e) {
       showErrorMessage(e.message!, context);
+      isLoading = false;
     } catch (e) {
       //print(e);
     }

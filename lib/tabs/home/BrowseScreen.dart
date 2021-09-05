@@ -50,28 +50,12 @@ class _BrowseScreenState extends State<BrowseScreen>{
               }
               if(provider.getToSearch()=='')
                 {
-                  return GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 4,
-                          mainAxisSpacing: 4),
-                      itemBuilder: (buildContext, index) {
-                        return RoomGridItem(roomsList[index],false);
-                      },
-                      itemCount: roomsList.length);
+                  return displayRooms(roomsList);
                 }
               else
                 {
                   List<Room> foundRooms=searchRoom(provider.getToSearch(), roomsList);
-                  return GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 4,
-                          mainAxisSpacing: 4),
-                      itemBuilder: (buildContext, index) {
-                        return RoomGridItem(foundRooms[index],false);
-                      },
-                      itemCount: foundRooms.length);
+                  return displayRooms(foundRooms);
                 }
                 }
         return Center(
@@ -90,8 +74,21 @@ List<Room> searchRoom(String text, List<Room> roomsList){
 
   List<Room> foundRooms=[];
   for(int i=0; i< roomsList.length; i++){
-    if(roomsList[i].name==text)
+    if(roomsList[i].name.contains(text))
       foundRooms.add(roomsList[i]);
   }
   return foundRooms;
+}
+
+Widget displayRooms(List<Room> rooms)
+{
+  return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 4,
+          mainAxisSpacing: 4),
+      itemBuilder: (buildContext, index) {
+        return RoomGridItem(rooms[index],false);
+      },
+      itemCount: rooms.length);
 }

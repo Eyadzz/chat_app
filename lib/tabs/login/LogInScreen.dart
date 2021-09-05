@@ -185,6 +185,8 @@ class _LoginState extends State<Login> {
       if(userCredential.user==null)
         {
           showErrorMessage("User does not exist",context);
+          isLoading = false;
+          setState(() {});
         }
       else{
         getUsersCollection().doc(userCredential.user!.uid).get().then((user) {
@@ -193,6 +195,8 @@ class _LoginState extends State<Login> {
         });
       }
     } on FirebaseAuthException catch (e) {
+      isLoading = false;
+      setState(() {});
       showErrorMessage(e.message ?? "Email or Password is wrong please try again",context);
     } catch (e) {
     }
