@@ -1,10 +1,11 @@
 import 'package:chat_app/components/AlertMessages.dart';
 import 'package:chat_app/components/DefaultAppBar.dart';
 import 'package:chat_app/tabs/home/HomeScreen.dart';
-
+import 'package:chat_app/utility/AppProvider.dart';
+import 'package:chat_app/utility/AuthMethods.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chat_app/tabs/register/RegistrationScreen.dart';
 import 'package:chat_app/utility/DatabaseHelper.dart';
-import 'package:chat_app/utility/AppProvider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   static const String routeName = 'login';
-
   @override
   _LoginState createState() => _LoginState();
 }
@@ -171,34 +171,7 @@ class _LoginState extends State<Login> {
       setState(() {
         isLoading = true;
       });
-      authLogin();
-    }
-  }
-
-  void authLogin() async {
-    try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      if(userCredential.user==null)
-        {
-          showErrorMessage("User does not exist",context);
-          isLoading = false;
-          setState(() {});
-        }
-      else{
-        getUsersCollection().doc(userCredential.user!.uid).get().then((user) {
-          provider.updateUser(user.data());
-          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomeScreen()));
-        });
-      }
-    } on FirebaseAuthException catch (e) {
-      isLoading = false;
-      setState(() {});
-      showErrorMessage(e.message ?? "Email or Password is wrong please try again",context);
-    } catch (e) {
+      authLogin(email, password, isLoading, provider,context);
     }
   }
 

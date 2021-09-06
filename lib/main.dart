@@ -5,6 +5,7 @@ import 'package:chat_app/tabs/join_room/JoinRoomScreen.dart';
 import 'package:chat_app/tabs/chat/RoomDetailsScreen.dart';
 import 'package:chat_app/tabs/chat/Chat.dart';
 import 'package:chat_app/tabs/login/LogInScreen.dart';
+import 'package:chat_app/utility/AuthMethods.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:chat_app/tabs/register/RegistrationScreen.dart';
 import 'package:chat_app/utility/AppProvider.dart';
@@ -20,6 +21,7 @@ void main() async{
 }
 
 class MyApp extends StatelessWidget {
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +40,9 @@ class MyApp extends StatelessWidget {
             Chat.routeName:(buildContext)=>Chat(),
             RoomsScreen.routeName:(buildContext) => RoomsScreen(),
             HomeScreen.routeName:(buildContext) => HomeScreen(),
+            CheckLogin.routeName:(buildContext) => CheckLogin()
           },
-          initialRoute: Login.routeName,
+          initialRoute: CheckLogin.routeName,
         );
       },
     );
